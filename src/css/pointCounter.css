@@ -1,0 +1,85 @@
+.PointCounter{
+    text-align: center;
+}
+
+.scoreBoard{
+    display: flex;
+    align-items: center;
+    background-color: blue;
+
+}
+.score {
+    background-color: #5e5e5e;
+    color: #ddd;
+    display:flex;
+    padding-inline: 10px;
+    margin-inline: 2px;
+    font-size: 170px;
+    border-radius: 10px;
+    
+}
+
+.scorebtn{
+    background-color: #5e5e5e;
+    color: #ddd;
+    display: inline-block;
+    padding-inline: 10px;
+    margin-inline: 2px;
+    font-size: 190px;
+    border-radius: 10px;
+}
+
+.round{
+    background-color: #5e5e5e;
+    color: #ddd;
+    display: block;
+    text-align: center;
+    width: 90px;
+    padding-inline: 10px;
+    margin-inline: 20px;
+    border-radius: 10px;
+}
+
+.player{
+    background-color: rgb(75, 75, 13);
+}
+
+.button {
+    background-color: #5e5e5e;
+    color: #ddd;
+    display: inline-block;
+    padding-inline: 10px;
+    margin-inline: 2px;
+    margin-bottom: 5px;
+
+    font-size: 190px;
+    border-radius: 10px;
+  position: relative;
+  border: none;
+  text-align: center;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  text-decoration: none;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.button:after {
+  content: "";
+  background: #90EE90;
+  display: block;
+  position: absolute;
+  padding-top: 300%;
+  padding-left: 350%;
+  margin-left: -20px!important;
+  margin-top: -120%;
+  opacity: 0;
+  transition: all 0.8s
+}
+
+.button:active:after {
+  padding: 0;
+  margin: 0;
+  opacity: 1;
+  transition: 0s
+}

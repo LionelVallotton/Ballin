@@ -6,3 +6,15 @@
     justify-content: center;
     align-items: center;
 }
+
+.statistic-table-container{
+    width: 40%;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.statistic-plot-container{
+    width: 40%;
+    margin-left: 10px;
+    margin-right: 10px;
+}

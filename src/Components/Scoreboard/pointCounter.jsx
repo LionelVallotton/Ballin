@@ -7,8 +7,12 @@ class PointCounter extends Component{
     constructor(props){
         super(props)
         this.state = {
-            counterP1: 0,
-            counterP2: 0,
+            nameP1: "Lionel",
+            scoreP1: 0,
+            pointListP1: [],
+            nameP2: "Nico",
+            scoreP2: 0,
+            pointListP2: [],
             shotCount: 0,
             stats: []
         }
@@ -20,17 +24,20 @@ class PointCounter extends Component{
     componentWillUnmount() {
     }
 
-    incP1 = (points) => {this.setState({counterP1: this.state.counterP1 + points}); this.incShot()}
-    incP2 = (points) => {this.setState({counterP2: this.state.counterP2 + points}); this.incShot()}
+    incP1 = (points) => {this.setState({pointListP1: [...this.state.pointListP1, points]});
+                            this.setState({scoreP1: this.state.scoreP1 + points});
+                            this.setState({shotCount: this.state.shotCount + 1});}
+    incP2 = (points) => {this.setState({pointListP2: [...this.state.pointListP2, points]});
+                            this.setState({scoreP1: this.state.scoreP1 + points});
+                            this.setState({shotCount: this.state.shotCount + 1});}
     
-    incShot = () => {this.setState({shotCount: this.state.shotCount + 1})}
 
     refresh = async () => {
         console.log("refresh got called")
         //this.setState((prevState => ({
         //    stats: [[{homeScore: this.state.counterP1, awayScore: this.state.counterP2, rounds: Math.floor(this.state.shotCount/2)+1, }], ...prevState.stats]
         //  })))
-        const newStatistic = {homeScore: this.state.counterP1, awayScore: this.state.counterP2, rounds: Math.floor(this.state.shotCount/2)+1, }
+        const newStatistic = {nameP1: this.nameP1, nameP2: this.state.nameP2, pointListP1: this.state.pointListP1, pointListP2: this.state.pointListP2}
         try{
             const response = await fetch('http://localhost:5000/statistics', {
                 method: 'POST',
@@ -46,9 +53,8 @@ class PointCounter extends Component{
         catch (error) {
             console.log(error);
         }
-        this.setState({stats: [newStatistic].concat(this.state.stats)})
-        this.setState({counterP1: 0, counterP2: 0 , shotCount: 0})
-        console.log(this.state.stats);
+        this.setState({stats: [{homeScore: this.state.scoreP1, awayScore: this.state.scoreP2, rounds: this.state.shotCount}].concat(this.state.stats)})
+        this.setState({pointListP1: [], pointListP2: [], scoreP1: 0, scoreP2: 0, shotCount: 0})
     }
     
     render(){
@@ -57,7 +63,7 @@ class PointCounter extends Component{
                 <div>
                     <h4>Home</h4>
                     <div>
-                        <h2 className='score'>{this.state.counterP1}</h2>
+                        <h2 className='score'>{this.state.scoreP1}</h2>
                     </div>
                     <div >
                         <Button className="button" onClick={() => this.incP1(0)}>0</Button>
@@ -69,15 +75,15 @@ class PointCounter extends Component{
 
                 </div>
                 <div>
-                    <h4 className='round'>Round {Math.floor(this.state.shotCount/2)+1}</h4>
-                    <h4 className='round'>Score {this.state.counterP1 + this.state.counterP2}</h4>
+                    <h4 className='round'>Round {this.state.shotCount/2}</h4>
+                    <h4 className='round'>Score {this.state.scoreP1 + this.state.scoreP2}</h4>
                     <Button className='round' onClick={this.refresh}>Refresh</Button>
 
 
                 </div>
                 <div>
                     <h4>Away</h4>
-                    <h2 className='score'>{this.state.counterP2}</h2>
+                    <h2 className='score'>{this.state.scoreP2}</h2>
                     <div>
                         <Button className="button" onClick={() => this.incP2(0)}>0</Button>
                         <Button className="button" onClick={() => this.incP2(1)}>1</Button>
